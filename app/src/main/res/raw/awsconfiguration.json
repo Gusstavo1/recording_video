@@ -1,0 +1,43 @@
+{
+    "UserAgent": "aws-amplify-cli/0.1.0",
+    "Version": "0.1.0",
+    "IdentityManager": {
+        "Default": {}
+    },
+    "AppSync": {
+        "Default": {
+            "ApiUrl": "https://7lncpj3dsbbqhh7n3eegl72a4e.appsync-api.us-east-1.amazonaws.com/graphql",
+            "Region": "us-east-1",
+            "AuthMode": "API_KEY",
+            "ApiKey": "da2-otwgzqwahzdapcw7kwow4cdw74",
+            "ClientDatabasePrefix": "amplifyDatasource_API_KEY"
+        }
+    },
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "us-east-1:f65d7d23-1a08-48ac-9c90-b9dbb6f3f343",
+                "Region": "us-east-1"
+            }
+        }
+    },
+    "CognitoUserPool": {
+        "Default": {
+            "PoolId": "us-east-1_xahkqwQqO",
+            "AppClientId": "1625l3mph8m4pu3vphn7nlcsav",
+            "AppClientSecret": "1fb2pu46de3cvqe07uuvto3vv6448ovfbrlfuduajo5agmrh04bv",
+            "Region": "us-east-1"
+        }
+    },
+    "Auth": {
+        "Default": {
+            "authenticationFlowType": "USER_SRP_AUTH"
+        }
+    },
+    "S3TransferUtility": {
+        "Default": {
+            "Bucket": "bucketmoviles121652-dev",
+            "Region": "us-east-1"
+        }
+    }
+}
