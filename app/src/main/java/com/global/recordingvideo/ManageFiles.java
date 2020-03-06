@@ -48,5 +48,4 @@ public class ManageFiles {
         void resultKey(String key);
     }
 
-
 }
