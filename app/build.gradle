@@ -42,5 +42,4 @@ dependencies {
 
 }
 
-//apply plugin: 'com.amplifyframework.amplifytools'
 

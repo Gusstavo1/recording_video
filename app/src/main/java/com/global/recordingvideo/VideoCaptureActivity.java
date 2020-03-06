@@ -28,8 +28,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
 
 import static android.os.Environment.getExternalStorageDirectory;
+import static com.global.recordingvideo.Principal.editor;
+import static com.global.recordingvideo.Principal.miSharedPreferences;
 
 public class VideoCaptureActivity extends AppCompatActivity {
     private Camera mCamera;
@@ -54,6 +58,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
     private long time  = 0;
     private File mediaFile;
     private int contGrabaciones = 0;
+    //public static SharedPreferences miSharedPreferences;
 
 
     @Override
@@ -65,9 +70,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
         mTimerTv = (TextView) findViewById(R.id.tvTimer);
         chronometer = (Chronometer)findViewById(R.id.cronometro);
 
-
-
-
         File nuevaCarpeta = new File(getExternalStorageDirectory(), "videos_monitoreo_unidades");
         if(!nuevaCarpeta.exists()){
             nuevaCarpeta.mkdirs();
@@ -75,7 +77,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
         }else{
             Toast.makeText(myContext, "La carpeta ya existe.", Toast.LENGTH_SHORT).show();
         }
-
 
         intent   = getIntent();
 
@@ -454,20 +455,25 @@ public class VideoCaptureActivity extends AppCompatActivity {
                         if(mediaFile.exists()){
 
                             Toast.makeText(myContext, "El archivo del video existe"+filePath, Toast.LENGTH_LONG).show();
-                            Log.d(TAG,"El archivo de video se genero :PATH"+filePath+"\nVideos grabados: "+contGrabaciones);
+                            Log.d(TAG,"El archivo de video se genero :PATH"+filePath+"\nVideos : "+contGrabaciones);
+                            String uniqueID = UUID.randomUUID().toString();
 
-                            /*SharedPreferences miSharedPreferences = getApplicationContext().getSharedPreferences("RUTAS_VIDEO",Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = miSharedPreferences.edit();
-                            editor.putString("PATH_VIDEO"+contGrabaciones,filePath);
-                            editor.commit();*/
+                            editor.putString("PATH_VIDEO_"+fecha,filePath);
+                            editor.commit();
 
-                            /*ManageFiles manageFiles = new ManageFiles();
+                            /*Map<String, ?> prefsMap = miSharedPreferences.getAll();
+                            for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
+                                Log.d("SharedPreferences", entry.getKey() + " value:" +
+                                        entry.getValue().toString());
+                            }*/
+                            //Log.d(TAG,"Tamaño: "+miSharedPreferences.getAll().size());
+                            ManageFiles manageFiles = new ManageFiles();
                             manageFiles.uploadFile(filePath, "video_demo_"+fecha+".mp4", new ManageFiles.S3FileKey() {
                                 @Override
                                 public void resultKey(String key) {
                                     manageFiles.generateS3URL(key);
                                 }
-                            });*/
+                            });
 
                         }else{
                             Log.d(TAG,"No existe el archivo.");

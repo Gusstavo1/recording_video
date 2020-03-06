@@ -3,72 +3,67 @@ package com.global.recordingvideo;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.util.Log;
+import java.util.Map;
 
-import java.io.File;
+
+import static com.global.recordingvideo.Principal.miSharedPreferences;
 
 public class BroadCastInternet extends BroadcastReceiver {
 
     private String TAG = "BROADCAST";
-    private SharedPreferences miShared;
-
+    //private SharedPreferences miShared;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        miShared = context.getSharedPreferences("RUTAS VIDEO",Context.MODE_PRIVATE);
+        //miShared = context.getSharedPreferences("RUTAS VIDEO",Context.MODE_PRIVATE);
 
         Log.d(TAG,"Se inicio Broadcast...");
 
         if(intent.getAction().equals("android.net.conn.CONNECTIVITY_CHANGE")){
-
             if(networkInfo == null){
                 Log.d(TAG,"RED NO DETECTADA");
             }else {
 
-                if(networkInfo.getState().equals("CONNECTED")){
+                if(networkInfo.getState().toString().equals("CONNECTED")){
+                    Log.d(TAG,"Shared preferences Tamaño: "+miSharedPreferences.getAll().size());
+                    Map<String, ?> prefsMap = miSharedPreferences.getAll();
+                    ManageFiles manageFiles = new ManageFiles();
 
-                    String sharedPath = "data/data/"+context.getString(R.string.package_name)+"/RUTAS_VIDEO";
-                    File carpeta = new File(sharedPath);
+                    if(miSharedPreferences.getAll().size() > 0){
+                        for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
+                            Log.d(TAG, entry.getKey() + " VALOR: " +
+                                    entry.getValue().toString());
+                            String nombreArchivo = entry.getValue().toString().substring(entry.getValue().toString().indexOf("test"));
+                            Log.d(TAG,"Nombre del Archivo: "+nombreArchivo);
 
-                    if(carpeta.exists()){
-
-                        ManageFiles manageFiles = new ManageFiles();
-                        //manageFiles.uploadFile();
-
-                      Log.d(TAG,"Longitud: "+carpeta.length());
-                      for (int i = 1; i<carpeta.length(); i++){
-
-                          String rutaVideo = miShared.getString("PATH_VIDEO1"+i,"");
-                          String nombreArchivo = rutaVideo.substring(rutaVideo.indexOf("test",rutaVideo.length()));
-
-                          Log.d(TAG,"RUTA DE VIDEO: "+rutaVideo+"\nNombre Archivo: "+nombreArchivo);
-
-                          /*manageFiles.uploadFile(rutaVideo, "video_demo.mp4", new ManageFiles.S3FileKey() {
-                              @Override
-                              public void resultKey(String key) {
-                                  manageFiles.generateS3URL(key);
-                              }
-                          });*/
-                      }
-
+                            manageFiles.uploadFile(entry.getValue().toString(), nombreArchivo, new ManageFiles.S3FileKey() {
+                                @Override
+                                public void resultKey(String key) {
+                                    manageFiles.generateS3URL(key);
+                                }
+                            });
+                            miSharedPreferences.edit().clear().apply();
+                        }
                     }else{
-                        Log.d(TAG,"No existe carpeta.");
+                        Log.d(TAG,"No existen rutas en cache.");
                     }
-
-
-                    //Llama la uri del video
-                    //Lanza el metodo de subir archivo...
                 }
-
-                Log.d(TAG,"netWork state: "+networkInfo.getState());
+                Log.d(TAG,"Estado de conexion: "+networkInfo.getState());
             }
         }
-
     }
+
+    /*public class UploadVideoFiles extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }*/
 }
