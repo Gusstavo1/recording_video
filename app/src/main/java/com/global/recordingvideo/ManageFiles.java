@@ -26,6 +26,7 @@ public class ManageFiles {
                     public void onResult(StorageUploadFileResult result) {
                         Log.d(TAG, "Carga correcta: " + result.getKey());
                         fileKey.resultKey(result.getKey());
+
                     }
 
                     @Override
@@ -46,4 +47,6 @@ public class ManageFiles {
     public interface S3FileKey{
         void resultKey(String key);
     }
+
+
 }

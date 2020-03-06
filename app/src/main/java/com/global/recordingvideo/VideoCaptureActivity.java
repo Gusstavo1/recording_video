@@ -339,7 +339,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Handles the requesting of the camera permission.
      */
@@ -367,9 +366,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
         final String[] permissions = new String[]{Manifest.permission.RECORD_AUDIO};
         ActivityCompat.requestPermissions(VideoCaptureActivity.this, permissions,
                 RC_HANDLE_RECORD_AUDIO_PERM);
-
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -442,8 +439,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
             }
         }.start();
     }*/
-
-
+    
     public void dialogSendVideo(){
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -467,6 +463,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
                                         entry.getValue().toString());
                             }*/
                             //Log.d(TAG,"Tamaño: "+miSharedPreferences.getAll().size());
+
                             ManageFiles manageFiles = new ManageFiles();
                             manageFiles.uploadFile(filePath, "video_demo_"+fecha+".mp4", new ManageFiles.S3FileKey() {
                                 @Override
