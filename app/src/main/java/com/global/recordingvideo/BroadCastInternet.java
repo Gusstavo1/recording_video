@@ -7,7 +7,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 import static com.global.recordingvideo.Principal.miSharedPreferences;
@@ -32,12 +37,20 @@ public class BroadCastInternet extends BroadcastReceiver {
             }else {
 
                 if(networkInfo.getState().toString().equals("CONNECTED")){
-                    Log.d(TAG,"Shared preferences Tamaño: "+miSharedPreferences.getAll().size());
-                    Map<String, ?> prefsMap = miSharedPreferences.getAll();
-                    ManageFiles manageFiles = new ManageFiles();
 
+                    //Log.d(TAG,"Shared preferences Tamaño: "+miSharedPreferences.getAll().size());
+                    //Map<String, ?> prefsMap = miSharedPreferences.getAll();
+                    //ManageFiles manageFiles = new ManageFiles(context);
                     if(miSharedPreferences.getAll().size() > 0){
-                        for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
+
+                        OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(WorkUpload.class)
+                                .addTag("Demo")
+                                .setInitialDelay(1, TimeUnit.SECONDS)
+                                .build();
+                        WorkManager.getInstance(context).enqueue(oneTimeWorkRequest);
+                        Log.d(TAG,"Lanza workmanager!");
+
+                        /*for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
                             Log.d(TAG, entry.getKey() + " VALOR: " +
                                     entry.getValue().toString());
                             String nombreArchivo = entry.getValue().toString().substring(entry.getValue().toString().indexOf("test"));
@@ -50,7 +63,8 @@ public class BroadCastInternet extends BroadcastReceiver {
                                 }
                             });
                             miSharedPreferences.edit().clear().apply();
-                        }
+                        }*/
+
                     }else{
                         Log.d(TAG,"No existen rutas en cache.");
                     }

@@ -3,13 +3,15 @@ package com.global.recordingvideo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
@@ -24,22 +26,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.airbnb.lottie.LottieAnimationView;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
-
 import static android.os.Environment.getExternalStorageDirectory;
+import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
+import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
 import static com.global.recordingvideo.Principal.editor;
-import static com.global.recordingvideo.Principal.miSharedPreferences;
+
 
 public class VideoCaptureActivity extends AppCompatActivity {
     private Camera mCamera;
     private CameraPreview mPreview;
     private MediaRecorder mediaRecorder;
-    private ImageView capture, switchCamera;
+    private ImageView capture, switchCamera,pause;
     private Context myContext;
     private LinearLayout cameraPreview;
     private boolean cameraFront = false;
@@ -59,16 +62,18 @@ public class VideoCaptureActivity extends AppCompatActivity {
     private File mediaFile;
     private int contGrabaciones = 0;
     //public static SharedPreferences miSharedPreferences;
-
+    private LottieAnimationView recordAnimation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera_capture);
+        setContentView(R.layout.activity_camera_cap);
+        getSupportActionBar().hide();
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         myContext = this;
         mTimerTv = (TextView) findViewById(R.id.tvTimer);
-        chronometer = (Chronometer)findViewById(R.id.cronometro);
+
 
         File nuevaCarpeta = new File(getExternalStorageDirectory(), "videos_monitoreo_unidades");
         if(!nuevaCarpeta.exists()){
@@ -171,6 +176,11 @@ public class VideoCaptureActivity extends AppCompatActivity {
         switchCamera = (ImageView) findViewById(R.id.button_ChangeCamera);
         switchCamera.setOnClickListener(switchCameraListener);
         capture.setSelected(true);
+
+        chronometer = (Chronometer)findViewById(R.id.cronometro);
+        recordAnimation = (LottieAnimationView)findViewById(R.id.lottieAnimationView);
+        pause = (ImageView)findViewById(R.id.button_pause);
+        pause.setOnClickListener(pauseListener);
     }
 
     View.OnClickListener switchCameraListener = new View.OnClickListener() {
@@ -236,23 +246,44 @@ public class VideoCaptureActivity extends AppCompatActivity {
         }
     }
 
+    View.OnClickListener pauseListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(recording){
+                chronometer.stop();
+                recordAnimation.setVisibility(View.INVISIBLE);
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                mediaRecorder.stop(); // stop the recording
+                releaseMediaRecorder(); // release the MediaRecorder object
+                Toast.makeText(VideoCaptureActivity.this, "¡Video Grabado!"+filePath, Toast.LENGTH_LONG).show();
+                dialogSendVideo();
+            }
+
+            recording = false;
+            capture.setSelected(true);
+        }
+    };
+
     boolean recording = false;
     View.OnClickListener captrureListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (recording) {
-                chronometer.stop();
-                // stop recording and release camera
-                mediaRecorder.stop(); // stop the recording
-                releaseMediaRecorder(); // release the MediaRecorder object
-                Toast.makeText(VideoCaptureActivity.this, "¡Video Grabado!"+filePath, Toast.LENGTH_LONG).show();
 
-                if(recording){
-                    contGrabaciones++;
-                    dialogSendVideo();
-                }
-                recording = false;
-                capture.setSelected(true);
+                contGrabaciones++;
+                //chronometer.stop();
+                //recordAnimation.setVisibility(View.INVISIBLE);
+                //chronometer.setBase(SystemClock.elapsedRealtime());
+                //chronometer.setBase(0);
+                // stop recording and release camera
+                //mediaRecorder.stop(); // stop the recording
+                //releaseMediaRecorder(); // release the MediaRecorder object
+                //Toast.makeText(VideoCaptureActivity.this, "¡Video Grabado!"+filePath, Toast.LENGTH_LONG).show();
+                //if(recording){
+                    //capture.setBackground(ContextCompat.getDrawable(VideoCaptureActivity.this, R.drawable.ic_record));
+                //}
+                //recording = false;
+                //capture.setSelected(true);
 
             } else {
                 if (!prepareMediaRecorder()) {
@@ -282,6 +313,8 @@ public class VideoCaptureActivity extends AppCompatActivity {
         }
     };
 
+
+
     private void releaseMediaRecorder() {
         if (mediaRecorder != null) {
             mediaRecorder.reset(); // clear recorder configuration
@@ -293,7 +326,8 @@ public class VideoCaptureActivity extends AppCompatActivity {
 
     private boolean prepareMediaRecorder() {
 
-
+        pause.setVisibility(View.VISIBLE);
+        recordAnimation.setVisibility(View.VISIBLE);
         Date miFecha = new Date();
         String format = "yyyy-MM-dd_hh:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
@@ -378,7 +412,8 @@ public class VideoCaptureActivity extends AppCompatActivity {
                     initializeCamera();
                 } else {
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                    builder.setMessage("This application cannot record video because it does not have the camera permission.");
+                    builder.setCancelable(false);
+                    builder.setMessage("Esta aplicación necesita el permiso para acceder a la cámara y poder grabar video");
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.show();
                 }
@@ -387,7 +422,9 @@ public class VideoCaptureActivity extends AppCompatActivity {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     requestRecordAudioPermission();
                 } else {
+
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+                    builder.setCancelable(false);
                     builder.setMessage("This application cannot record video because it does not have the write external storage permission.");
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.show();
@@ -398,6 +435,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
                     requestCameraPermission();
                 } else {
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+                    builder.setCancelable(false);
                     builder.setMessage("This application cannot record video because it does not have the record audio permission.");
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.show();
@@ -439,7 +477,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
             }
         }.start();
     }*/
-    
+
     public void dialogSendVideo(){
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -449,28 +487,13 @@ public class VideoCaptureActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         if(mediaFile.exists()){
-
                             Toast.makeText(myContext, "El archivo del video existe"+filePath, Toast.LENGTH_LONG).show();
                             Log.d(TAG,"El archivo de video se genero :PATH"+filePath+"\nVideos : "+contGrabaciones);
                             String uniqueID = UUID.randomUUID().toString();
-
                             editor.putString("PATH_VIDEO_"+fecha,filePath);
                             editor.commit();
-
-                            /*Map<String, ?> prefsMap = miSharedPreferences.getAll();
-                            for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
-                                Log.d("SharedPreferences", entry.getKey() + " value:" +
-                                        entry.getValue().toString());
-                            }*/
-                            //Log.d(TAG,"Tamaño: "+miSharedPreferences.getAll().size());
-
-                            ManageFiles manageFiles = new ManageFiles();
-                            manageFiles.uploadFile(filePath, "video_demo_"+fecha+".mp4", new ManageFiles.S3FileKey() {
-                                @Override
-                                public void resultKey(String key) {
-                                    manageFiles.generateS3URL(key);
-                                }
-                            });
+                            pause.setVisibility(View.INVISIBLE);
+                            //Aqui se lanzaba se invocaba la clase Manafiles
 
                         }else{
                             Log.d(TAG,"No existe el archivo.");
@@ -478,6 +501,30 @@ public class VideoCaptureActivity extends AppCompatActivity {
                     }
                 });
         builder.create().show();
+    }
+
+    public void dialogSalir(){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("¿Terminar video?")
+                .setCancelable(false)
+                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                }).setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.create().dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //dialogSalir();
     }
 
 

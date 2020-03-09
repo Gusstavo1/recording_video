@@ -47,6 +47,7 @@ public class Principal extends AppCompatActivity {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Sin conexión a internet     :(\n¿Desea grabar sin estar conectado? el video se almacenará de forma local y se enviará en cuanto se reestablezca la conexión.")
+                .setCancelable(false)
                 .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 

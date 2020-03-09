@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
 
 
     <LinearLayout
@@ -10,8 +11,40 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true"/>
+        android:orientation="vertical" />
+
+    <LinearLayout
+        android:layout_marginBottom="55dp"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Chronometer
+        android:id="@+id/cronometro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"></Chronometer>
+
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="live.json"
+            app:lottie_loop="true">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/buttonsLayout"
@@ -28,18 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/camera_switch_icon"
+            android:src="@drawable/ic_switch_camera"
             android:layout_gravity="left"/>
-
-        <Chronometer
-            android:gravity="center"
-            android:layout_weight="1"
-            android:textSize="25sp"
-            android:textColor="#FFFFFF"
-            android:id="@+id/cronometro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Chronometer>
 
         <TextView
             android:visibility="gone"
@@ -55,12 +78,23 @@
             android:gravity="center"/>
 
         <ImageView
+            android:visibility="visible"
             android:id="@+id/button_capture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/video_start_stop_selector"
+            android:src="@drawable/ic_videocam"
             android:layout_weight="1"
             />
+
+            <ImageView
+                android:visibility="visible"
+                android:id="@+id/button_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pause"
+                android:layout_weight="1"
+                />
+
     </LinearLayout>
 
 </RelativeLayout>
