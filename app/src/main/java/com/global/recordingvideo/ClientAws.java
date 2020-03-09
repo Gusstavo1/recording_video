@@ -15,7 +15,7 @@ import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 public class ClientAws extends Application {
 
     public static final String CHANNEL_ID = "com.global.recordingvideo.ANDROID";
-    public static final int NOTIFICATION_ID = 0;
+    public static IdAletorio  NOTIFICATION_ID = new IdAletorio();
 
     private String TAG = "ClientAws";
 

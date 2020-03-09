@@ -40,8 +40,9 @@ public class WorkUpload extends Worker {
                     manageFiles.generateS3URL(key);
                 }
             });
-            miSharedPreferences.edit().clear().apply();
         }
+        miSharedPreferences.edit().clear().apply();
+
         return Result.success();
     }
 }

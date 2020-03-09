@@ -41,8 +41,8 @@ public class BroadCastInternet extends BroadcastReceiver {
                     //Log.d(TAG,"Shared preferences Tamaño: "+miSharedPreferences.getAll().size());
                     //Map<String, ?> prefsMap = miSharedPreferences.getAll();
                     //ManageFiles manageFiles = new ManageFiles(context);
-                    if(miSharedPreferences.getAll().size() > 0){
 
+                    if(miSharedPreferences.getAll().size() > 0){
                         OneTimeWorkRequest oneTimeWorkRequest = new OneTimeWorkRequest.Builder(WorkUpload.class)
                                 .addTag("Demo")
                                 .setInitialDelay(1, TimeUnit.SECONDS)

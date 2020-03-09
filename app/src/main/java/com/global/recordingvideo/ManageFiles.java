@@ -19,18 +19,15 @@ import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
 
 public class ManageFiles {
+
     private static final String TAG = "UploadFile";
-
     private Context context;
-
     public Context getContext() {
         return context;
     }
-
     public ManageFiles(Context context) {
         this.context = context;
     }
-
     public void uploadFile(String pathFile, String fileName, final S3FileKey fileKey){
 
         StorageUploadFileOptions options =   StorageUploadFileOptions.builder().accessLevel(StorageAccessLevel.PUBLIC).build();
@@ -45,7 +42,7 @@ public class ManageFiles {
                         Log.d(TAG, "Carga correcta: " + result.getKey());
                         fileKey.resultKey(result.getKey());
                         //Lanza notificacion
-                        createNotification();
+                        createNotification(result.getKey());
                     }
 
                     @Override
@@ -67,14 +64,16 @@ public class ManageFiles {
         void resultKey(String key);
     }
 
-    public void createNotification(){
+    public void createNotification(String fileName){
+
+        Log.d(TAG,"Creando notificacion");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_file_upload);
         builder.setContentTitle("Archivo enviado.");
-        builder.setContentText("El video fue ha sido enviado de forma exitosa");
+        builder.setContentText("El video "+fileName+" fue ha sido enviado de forma exitosa");
         builder.setColor(Color.BLUE);
         builder.setVibrate(new long[]{1000,1000,1000,1000});
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
-        notificationManagerCompat.notify(NOTIFICATION_ID,builder.build());
+        notificationManagerCompat.notify(NOTIFICATION_ID.idAleatorio(),builder.build());
     }
 }
