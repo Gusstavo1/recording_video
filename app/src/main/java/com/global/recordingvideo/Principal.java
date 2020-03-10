@@ -30,6 +30,7 @@ public class Principal extends AppCompatActivity {
         miSharedPreferences = getApplicationContext().getSharedPreferences("RUTAS_VIDEO",Context.MODE_PRIVATE);
         editor = miSharedPreferences.edit();
 
+
         Button btnOpenCam = (Button)findViewById(R.id.openCam);
         btnOpenCam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,13 @@ public class Principal extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        //unregisterReceiver(broadCastInternet);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"onDestroy");
         unregisterReceiver(broadCastInternet);
     }
 }

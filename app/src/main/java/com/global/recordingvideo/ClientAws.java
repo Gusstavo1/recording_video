@@ -16,8 +16,8 @@ public class ClientAws extends Application {
 
     public static final String CHANNEL_ID = "com.global.recordingvideo.ANDROID";
     public static IdAletorio  NOTIFICATION_ID = new IdAletorio();
-
     private String TAG = "ClientAws";
+    private BroadCastInternet broadCastInternet;
 
     @Override
     public void onCreate() {
@@ -43,7 +43,6 @@ public class ClientAws extends Application {
         });
     }
 
-
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -60,4 +59,6 @@ public class ClientAws extends Application {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+
 }
