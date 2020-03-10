@@ -503,6 +503,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /*
     public void dialogSalir(){
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -519,7 +520,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
             }
         });
         builder.create().show();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

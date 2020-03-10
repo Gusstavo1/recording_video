@@ -14,7 +14,6 @@ import static com.global.recordingvideo.Principal.miSharedPreferences;
 public class WorkUpload extends Worker {
 
     private String TAG = "WorkUpload";
-
     public WorkUpload(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
@@ -41,8 +40,6 @@ public class WorkUpload extends Worker {
                 }
             });
         }
-        miSharedPreferences.edit().clear().apply();
-
         return Result.success();
     }
 }

@@ -17,6 +17,8 @@ import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 
 import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
+import static com.global.recordingvideo.Principal.editor;
+import static com.global.recordingvideo.Principal.miSharedPreferences;
 
 public class ManageFiles {
 
@@ -28,6 +30,8 @@ public class ManageFiles {
     public ManageFiles(Context context) {
         this.context = context;
     }
+
+
     public void uploadFile(String pathFile, String fileName, final S3FileKey fileKey){
 
         StorageUploadFileOptions options =   StorageUploadFileOptions.builder().accessLevel(StorageAccessLevel.PUBLIC).build();
@@ -40,9 +44,19 @@ public class ManageFiles {
                     @Override
                     public void onResult(StorageUploadFileResult result) {
                         Log.d(TAG, "Carga correcta: " + result.getKey());
+
+                        String nombreKey = fileName.substring(fileName.indexOf("20"),(fileName.length())-4);
+                        Log.d(TAG,"PATH_VIDEO_"+nombreKey);
+
                         fileKey.resultKey(result.getKey());
                         //Lanza notificacion
                         createNotification(result.getKey());
+                        //Quital el valor de memoria cache.
+                        editor.remove("PATH_VIDEO_"+nombreKey).commit();
+
+                        if( miSharedPreferences.getAll().size()== 0){
+                            androidx.work.WorkManager.getInstance().cancelAllWorkByTag("uploadFiles");
+                        }
                     }
 
                     @Override
@@ -70,7 +84,7 @@ public class ManageFiles {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_file_upload);
         builder.setContentTitle("Archivo enviado.");
-        builder.setContentText("El video "+fileName+" fue ha sido enviado de forma exitosa");
+        builder.setContentText("El video "+fileName+" enviado");
         builder.setColor(Color.BLUE);
         builder.setVibrate(new long[]{1000,1000,1000,1000});
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
