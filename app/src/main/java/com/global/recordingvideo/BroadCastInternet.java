@@ -58,25 +58,4 @@ public class BroadCastInternet extends BroadcastReceiver {
         }
     }
 
-    /*public void workManagerState(){
-        WorkManager.getInstance().getWorkInfoByIdLiveData(oneTimeWorkRequest.getId())
-                .observe(BroadCastInternet.super , new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(@Nullable WorkInfo workInfo) {
-                        if(workInfo != null){
-                            Log.d(TAG,"Estado workManager  "+workInfo.getState().name());
-                            if(workInfo.getState().name().equals("ENQUEUED")){
-                                Log.d(TAG,"El workmanager esta en espera...");
-                            }else if(workInfo.getState().name().equals("CANCELLED")){
-                                Log.d(TAG,"Workmanager en otro estado...");
-                            }
-                        }else{
-                            Log.d(TAG,"Workmanager nulo");
-                        }
-                    }
-                });
-
-    }*/
-
-
 }

@@ -2,6 +2,8 @@ package com.global.recordingvideo;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,12 +17,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.concurrent.TimeUnit;
+
 public class Principal extends AppCompatActivity {
 
     private String TAG = "Principal";
     private BroadCastInternet broadCastInternet;
+    private PeriodicWorkRequest periodicWorkRequest;
+
     public static SharedPreferences miSharedPreferences;
     public static SharedPreferences.Editor editor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +38,9 @@ public class Principal extends AppCompatActivity {
         miSharedPreferences = getApplicationContext().getSharedPreferences("RUTAS_VIDEO",Context.MODE_PRIVATE);
         editor = miSharedPreferences.edit();
 
-
+        periodicWorkRequest = new PeriodicWorkRequest.Builder(WorkInternet.class,1, TimeUnit.MINUTES).build();
+        WorkManager.getInstance().enqueue(periodicWorkRequest);
+        
         Button btnOpenCam = (Button)findViewById(R.id.openCam);
         btnOpenCam.setOnClickListener(new View.OnClickListener() {
             @Override

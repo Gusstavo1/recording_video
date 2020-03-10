@@ -17,7 +17,7 @@ public class ClientAws extends Application {
     public static final String CHANNEL_ID = "com.global.recordingvideo.ANDROID";
     public static IdAletorio  NOTIFICATION_ID = new IdAletorio();
     private String TAG = "ClientAws";
-    private BroadCastInternet broadCastInternet;
+    //private BroadCastInternet broadCastInternet;
 
     @Override
     public void onCreate() {
