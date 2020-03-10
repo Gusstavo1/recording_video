@@ -59,6 +59,4 @@ public class ClientAws extends Application {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 }
