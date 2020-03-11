@@ -38,6 +38,15 @@
             </intent-filter>
         </receiver>
 
+        <!--
+        <service android:name=".ServiceInternet">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </service>-->
+
+        <service android:name=".ServiceCheckInternet"></service>
+
     </application>
 
 </manifest>

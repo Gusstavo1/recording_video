@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +24,8 @@ import java.util.concurrent.TimeUnit;
 public class Principal extends AppCompatActivity {
 
     private String TAG = "Principal";
-    private BroadCastInternet broadCastInternet;
-    private PeriodicWorkRequest periodicWorkRequest;
-
-    public static SharedPreferences miSharedPreferences;
-    public static SharedPreferences.Editor editor;
-
+    //private BroadCastInternet broadCastInternet;
+    private Message message;
 
 
     @Override
@@ -35,12 +33,14 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
-        miSharedPreferences = getApplicationContext().getSharedPreferences("RUTAS_VIDEO",Context.MODE_PRIVATE);
-        editor = miSharedPreferences.edit();
+        //inicia el service
+        //Intent mIntent = new Intent(this,ServiceInternet.class);
+        //startService(mIntent);
 
-        periodicWorkRequest = new PeriodicWorkRequest.Builder(WorkInternet.class,1, TimeUnit.MINUTES).build();
-        WorkManager.getInstance().enqueue(periodicWorkRequest);
-        
+        startService(new Intent(this,ServiceCheckInternet.class));
+
+        //isMyServiceRunning(ServiceCheckInternet.class);
+
         Button btnOpenCam = (Button)findViewById(R.id.openCam);
         btnOpenCam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,22 +93,32 @@ public class Principal extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        /*IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         broadCastInternet = new BroadCastInternet();
-        registerReceiver(broadCastInternet,intentFilter);
+        registerReceiver(broadCastInternet,intentFilter);*/
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        //unregisterReceiver(broadCastInternet);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"onDestroy");
-        unregisterReceiver(broadCastInternet);
+        //unregisterReceiver(broadCastInternet);
     }
+
+    /*private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.d(TAG,"Service run!");
+                return true;
+            }
+        }
+        return false;
+    }*/
 }

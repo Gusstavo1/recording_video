@@ -9,7 +9,7 @@ import androidx.work.WorkerParameters;
 
 import java.util.Map;
 
-import static com.global.recordingvideo.Principal.miSharedPreferences;
+import static com.global.recordingvideo.ServiceCheckInternet.miSharedPreferences;
 
 public class WorkUpload extends Worker {
 

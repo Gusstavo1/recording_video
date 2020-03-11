@@ -35,7 +35,7 @@ import java.util.UUID;
 import static android.os.Environment.getExternalStorageDirectory;
 import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
-import static com.global.recordingvideo.Principal.editor;
+import static com.global.recordingvideo.ServiceCheckInternet.editor;
 
 
 public class VideoCaptureActivity extends AppCompatActivity {

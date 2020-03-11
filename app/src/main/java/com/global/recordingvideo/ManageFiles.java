@@ -17,8 +17,8 @@ import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 
 import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
-import static com.global.recordingvideo.Principal.editor;
-import static com.global.recordingvideo.Principal.miSharedPreferences;
+import static com.global.recordingvideo.ServiceCheckInternet.editor;
+import static com.global.recordingvideo.ServiceCheckInternet.miSharedPreferences;
 
 public class ManageFiles {
 
@@ -62,6 +62,7 @@ public class ManageFiles {
                     @Override
                     public void onError(Throwable error) {
                         Log.d(TAG, "Error al subir archivo: " + error.getMessage());
+                        createErrorNotification();
                     }
                 }
         );
@@ -83,11 +84,26 @@ public class ManageFiles {
         Log.d(TAG,"Creando notificacion");
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_file_upload);
-        builder.setContentTitle("Archivo enviado.");
+        builder.setContentTitle("Video enviado.");
         builder.setContentText("El video "+fileName+" enviado");
         builder.setColor(Color.BLUE);
         builder.setVibrate(new long[]{1000,1000,1000,1000});
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
         notificationManagerCompat.notify(NOTIFICATION_ID.idAleatorio(),builder.build());
     }
+
+    public void createErrorNotification(){
+
+        Log.d(TAG,"Creando notificacion de error.");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_error);
+        builder.setContentTitle("Video no enviado.");
+        builder.setContentText("Algo ocurrio, el video será enviado de nuevo.");
+        builder.setColor(Color.BLUE);
+        builder.setVibrate(new long[]{1000,1000,1000,1000});
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
+        notificationManagerCompat.notify(NOTIFICATION_ID.idAleatorio(),builder.build());
+
+    }
+
 }
