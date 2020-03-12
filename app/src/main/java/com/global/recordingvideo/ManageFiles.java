@@ -61,9 +61,9 @@ public class ManageFiles {
                         fileKey.resultKey(result.getKey());
                         //Lanza notificacion
                         //createNotification(result.getKey());
-                        //Quital el valor de memoria cache.
                          createNotification("Upload","Video enviado.","Se envio "+fileName);
 
+                        //Quital el valor de memoria cache.
                         editor.remove("PATH_VIDEO_"+nombreKey).commit();
 
                         if( miSharedPreferences.getAll().size()== 0){
