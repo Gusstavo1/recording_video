@@ -271,19 +271,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
             if (recording) {
 
                 contGrabaciones++;
-                //chronometer.stop();
-                //recordAnimation.setVisibility(View.INVISIBLE);
-                //chronometer.setBase(SystemClock.elapsedRealtime());
-                //chronometer.setBase(0);
-                // stop recording and release camera
-                //mediaRecorder.stop(); // stop the recording
-                //releaseMediaRecorder(); // release the MediaRecorder object
-                //Toast.makeText(VideoCaptureActivity.this, "¡Video Grabado!"+filePath, Toast.LENGTH_LONG).show();
-                //if(recording){
-                    //capture.setBackground(ContextCompat.getDrawable(VideoCaptureActivity.this, R.drawable.ic_record));
-                //}
-                //recording = false;
-                //capture.setSelected(true);
 
             } else {
                 if (!prepareMediaRecorder()) {
@@ -445,39 +432,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
         }
     }
 
-    /*private void startCountDownTimer(){
-        new CountDownTimer(mCountDownTimer, 1000) {
-
-            public void onTick(final long millisUntilFinished) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTimerTv.setText("" + millisUntilFinished / 1000);
-                    }
-                });
-
-            }
-
-            public void onFinish() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mTimerTv.setText("¡ Video Grabado!");
-                        if (recording) {
-                            // stop recording and release camera
-                            mediaRecorder.stop(); // stop the recording
-                            releaseMediaRecorder(); // release the MediaRecorder object
-                            Toast.makeText(VideoCaptureActivity.this, "Video captured!", Toast.LENGTH_LONG).show();
-                            capture.setSelected(true);
-                            recording = false;
-                        }
-                    }
-                });
-
-            }
-        }.start();
-    }*/
-
     public void dialogSendVideo(){
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -493,6 +447,10 @@ public class VideoCaptureActivity extends AppCompatActivity {
                             editor.putString("PATH_VIDEO_"+fecha,filePath);
                             editor.commit();
                             pause.setVisibility(View.INVISIBLE);
+
+                            Intent mIntent = new Intent(getApplicationContext(),ResultActivity.class);
+                            startActivity(mIntent);
+
                             //Aqui se lanzaba se invocaba la clase Manafiles
 
                         }else{

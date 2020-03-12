@@ -19,34 +19,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".ResultActivity"
+            android:parentActivityName=".Principal"
+            android:launchMode="singleTop"></activity>
         <activity android:name=".Principal">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".VideoCaptureActivity">
+        <activity android:name=".VideoCaptureActivity"></activity>
 
-        </activity>
-
-        <receiver android:name=".BroadCastInternet"
+        <receiver
+            android:name=".BroadCastInternet"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <!--
-        <service android:name=".ServiceInternet">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </service>-->
-
-        <service android:name=".ServiceCheckInternet"></service>
-
+        <service android:name=".ServiceCheckInternet" />
     </application>
 
 </manifest>

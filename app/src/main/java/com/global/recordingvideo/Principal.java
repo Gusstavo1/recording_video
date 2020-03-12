@@ -36,9 +36,7 @@ public class Principal extends AppCompatActivity {
         //inicia el service
         //Intent mIntent = new Intent(this,ServiceInternet.class);
         //startService(mIntent);
-
         startService(new Intent(this,ServiceCheckInternet.class));
-
         //isMyServiceRunning(ServiceCheckInternet.class);
 
         Button btnOpenCam = (Button)findViewById(R.id.openCam);

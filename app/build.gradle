@@ -48,7 +48,3 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "androidx.cardview:cardview:1.0.0"
 }
-
-
-
-
