@@ -44,8 +44,6 @@ public class TabsVideos extends AppCompatActivity implements ActionBar .TabListe
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
-
-
     }
 
     @Override

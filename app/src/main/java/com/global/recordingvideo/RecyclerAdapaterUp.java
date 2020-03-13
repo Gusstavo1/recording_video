@@ -31,7 +31,6 @@ public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         ItemVideo itemVideo = mListVideos.get(position);
         holder.fileName.setText(itemVideo.getNombreArchivo());
-
     }
 
     @Override
