@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:id="@+id/nombreVideoUP"
+                    android:id="@+id/nombreVideo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre de video"
@@ -67,7 +67,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:lottie_autoPlay="true"
-                    app:lottie_fileName="upload.json"
+                    app:lottie_fileName="success.json"
                     app:lottie_loop="true">
 
                 </com.airbnb.lottie.LottieAnimationView>

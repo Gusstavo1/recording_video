@@ -3,17 +3,11 @@ package com.global.recordingvideo;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.ResultListener;
@@ -21,9 +15,6 @@ import com.amplifyframework.storage.StorageAccessLevel;
 import com.amplifyframework.storage.options.StorageUploadFileOptions;
 import com.amplifyframework.storage.result.StorageUploadFileResult;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
-
-import java.util.concurrent.TimeUnit;
-
 import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
 import static com.global.recordingvideo.ServiceCheckInternet.editor;
@@ -32,8 +23,11 @@ import static com.global.recordingvideo.ServiceCheckInternet.miSharedPreferences
 public class ManageFiles {
 
     private static final String TAG = "UploadFile";
-    OneTimeWorkRequest oneTimeWorkRequest;
+
     private Context context;
+    static SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
     public Context getContext() {
         return context;
     }
@@ -53,18 +47,24 @@ public class ManageFiles {
                 new ResultListener<StorageUploadFileResult>() {
                     @Override
                     public void onResult(StorageUploadFileResult result) {
-                        Log.d(TAG, "Carga correcta: " + result.getKey());
 
+                        Log.d(TAG, "Carga correcta: " + result.getKey());
                         String nombreKey = fileName.substring(fileName.indexOf("20"),(fileName.length())-4);
                         Log.d(TAG,"PATH_VIDEO_"+nombreKey);
-
                         fileKey.resultKey(result.getKey());
                         //Lanza notificacion
-                        //createNotification(result.getKey());
                          createNotification("Upload","Video enviado.","Se envio "+fileName);
-
                         //Quital el valor de memoria cache.
                         editor.remove("PATH_VIDEO_"+nombreKey).commit();
+
+                        mSharedPreferences = getContext().getSharedPreferences("SUBIDOS",Context.MODE_PRIVATE);
+                        mEditor = mSharedPreferences.edit();
+                        mEditor.putString("video_"+fileName,fileName);
+                        mEditor.commit();
+
+                        Intent intent = new Intent("com.global.recordingvideo.UPDATE_UI");
+                        intent.putExtra("Message","Hola update Ui");
+                        context.sendBroadcast(intent);
 
                         if( miSharedPreferences.getAll().size()== 0){
                             androidx.work.WorkManager.getInstance().cancelAllWorkByTag("uploadFiles");
@@ -74,20 +74,11 @@ public class ManageFiles {
                     @Override
                     public void onError(Throwable error) {
                         Log.d(TAG, "Error al subir archivo: " + error.getMessage());
-                        //createErrorNotification();
-                        //Drawable iconError = getContext().getResources().getDrawable(R.drawable.ic_error);
-
                         createNotification("Error","Video no enviado."
                                 ,"Algo ocurrio, el video será enviado de nuevo." );
 
                         if(miSharedPreferences.getAll().size()>0){
                             Log.d(TAG,"Lanza WorkManager ");
-
-                            oneTimeWorkRequest = new OneTimeWorkRequest.Builder(WorkUpload.class)
-                                    .addTag("uploadFiles")
-                                    .setInitialDelay(1, TimeUnit.SECONDS)
-                                    .build();
-                            WorkManager.getInstance(context).enqueue(oneTimeWorkRequest);
 
                         }
                     }
@@ -126,5 +117,4 @@ public class ManageFiles {
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
         notificationManagerCompat.notify(NOTIFICATION_ID.idAleatorio(),builder.build());
     }
-
 }

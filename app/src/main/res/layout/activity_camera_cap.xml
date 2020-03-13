@@ -4,8 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
 
     <LinearLayout
 
@@ -14,6 +13,7 @@
         android:layout_height="match_parent">
 
     </LinearLayout>
+
 
     <Chronometer
         android:id="@+id/cronometro"
@@ -97,98 +97,5 @@
             android:visibility="invisible" />
 
     </LinearLayout>
-
-    <!--
-
-    <LinearLayout
-        android:id="@+id/camera_preview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="vertical" />
-
-    <LinearLayout
-        android:layout_marginBottom="55dp"
-        android:gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Chronometer
-            android:id="@+id/cronometro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"></Chronometer>
-
-        <com.airbnb.lottie.LottieAnimationView
-
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="live.json"
-            app:lottie_loop="true">
-
-        </com.airbnb.lottie.LottieAnimationView>
-
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/buttonsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:weightSum="3"
-        android:layout_marginBottom="10dp">
-
-        <ImageView
-            android:id="@+id/button_ChangeCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_switch_camera"
-            android:layout_gravity="left"/>
-
-        <TextView
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="#FFFFFF"
-            android:background="@android:color/transparent"
-            android:layout_alignParentTop="true"
-            android:text="00"
-            android:id="@+id/tvTimer"
-            android:textSize="25sp"
-            android:layout_weight="1"
-            android:gravity="center"/>
-
-        <ImageView
-            android:visibility="visible"
-            android:id="@+id/button_capture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_videocam"
-            android:layout_weight="1"
-            />
-
-        <ImageView
-            android:visibility="visible"
-            android:id="@+id/button_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_pause"
-            android:layout_weight="1"
-            />
-
-    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

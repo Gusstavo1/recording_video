@@ -28,10 +28,12 @@ public class Principal extends AppCompatActivity {
     private Message message;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        getSupportActionBar().hide();
 
         //inicia el service
         //Intent mIntent = new Intent(this,ServiceInternet.class);
@@ -39,7 +41,8 @@ public class Principal extends AppCompatActivity {
         startService(new Intent(this,ServiceCheckInternet.class));
         //isMyServiceRunning(ServiceCheckInternet.class);
 
-        Button btnOpenCam = (Button)findViewById(R.id.openCam);
+        Button btnOpenCam   = (Button)findViewById(R.id.openCam);
+        Button btnVideos    = (Button)findViewById(R.id.verArchivos);
         btnOpenCam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +51,14 @@ public class Principal extends AppCompatActivity {
                     dialogo();
                 }
 
+            }
+        });
+
+        btnVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent(getApplicationContext(),TabsVideos.class);
+                startActivity(mIntent);
             }
         });
     }

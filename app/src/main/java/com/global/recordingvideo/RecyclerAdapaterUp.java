@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
+public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.RecyclerViewHolder>  {
 
     private ArrayList<ItemVideo>mListVideos;
 
-    public RecyclerAdapter(ArrayList<ItemVideo> mListVideos) {
+    public RecyclerAdapaterUp(ArrayList<ItemVideo> mListVideos) {
         this.mListVideos = mListVideos;
     }
 
@@ -22,8 +22,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video_upload,parent,false);
-        RecyclerAdapter.RecyclerViewHolder re = new RecyclerAdapter.RecyclerViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_video,parent,false);
+        RecyclerAdapaterUp.RecyclerViewHolder re = new RecyclerAdapaterUp.RecyclerViewHolder(view);
         return re;
     }
 
@@ -31,11 +31,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         ItemVideo itemVideo = mListVideos.get(position);
         holder.fileName.setText(itemVideo.getNombreArchivo());
+
     }
 
     @Override
     public int getItemCount() {
-        return mListVideos.size();
+        return mListVideos.size() ;
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder{
@@ -43,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
-            fileName = itemView.findViewById(R.id.nombreVideo);
+            fileName = itemView.findViewById(R.id.nombreVideoUP);
         }
     }
 }

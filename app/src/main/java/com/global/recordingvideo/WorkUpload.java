@@ -10,7 +10,6 @@ import androidx.work.WorkerParameters;
 import java.util.Map;
 
 import static com.global.recordingvideo.ServiceCheckInternet.miSharedPreferences;
-
 public class WorkUpload extends Worker {
 
     private String TAG = "WorkUpload";

@@ -19,26 +19,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ResultActivity"
-            android:parentActivityName=".Principal"
-            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".TabsVideos"
+            android:label="@string/title_activity_tabs_videos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".TabsVideo"
+            android:label="@string/title_activity_tabs_video"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ResultActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".Principal" />
         <activity android:name=".Principal">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoCaptureActivity"></activity>
+        <activity android:name=".VideoCaptureActivity" />
 
         <receiver
             android:name=".BroadCastInternet"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".BroadcastUpdateUi"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.global.recordingvideo.UPDATE_UI" />
             </intent-filter>
         </receiver>
 

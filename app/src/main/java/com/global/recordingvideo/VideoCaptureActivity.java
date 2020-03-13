@@ -33,10 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 import static android.os.Environment.getExternalStorageDirectory;
-import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
-import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
 import static com.global.recordingvideo.ServiceCheckInternet.editor;
-
 
 public class VideoCaptureActivity extends AppCompatActivity {
     private Camera mCamera;
@@ -165,6 +162,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
     }
 
     public void initialize() {
+
         cameraPreview = (LinearLayout) findViewById(R.id.camera_preview);
 
         mPreview = new CameraPreview(myContext, mCamera);
@@ -448,9 +446,8 @@ public class VideoCaptureActivity extends AppCompatActivity {
                             editor.commit();
                             pause.setVisibility(View.INVISIBLE);
 
-                            Intent mIntent = new Intent(getApplicationContext(),ResultActivity.class);
-                            startActivity(mIntent);
-
+                            //Intent mIntent = new Intent(getApplicationContext(),ResultActivity.class);
+                            //startActivity(mIntent);
                             //Aqui se lanzaba se invocaba la clase Manafiles
 
                         }else{
