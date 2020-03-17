@@ -63,7 +63,7 @@ public class ManageFiles {
                         mEditor.commit();
 
                         Intent intent = new Intent("com.global.recordingvideo.UPDATE_UI");
-                        intent.putExtra("Message","Hola update Ui");
+                        intent.putExtra("VIDEO",fileName);
                         context.sendBroadcast(intent);
 
                         if( miSharedPreferences.getAll().size()== 0){

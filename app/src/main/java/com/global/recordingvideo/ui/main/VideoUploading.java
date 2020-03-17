@@ -2,8 +2,7 @@ package com.global.recordingvideo.ui.main;
 
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,14 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.global.recordingvideo.BroadcastUpdateUi;
 import com.global.recordingvideo.ItemVideo;
 import com.global.recordingvideo.R;
 import com.global.recordingvideo.RecyclerAdapaterUp;
-import com.global.recordingvideo.RecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -32,12 +29,14 @@ import static com.global.recordingvideo.ServiceCheckInternet.miSharedPreferences
 public class VideoUploading extends Fragment {
 
 
-    private RecyclerView recyclerView;
-    private RecyclerAdapaterUp recyclerAdapter;
+    public static  RecyclerView recyclerView;
+    public static RecyclerAdapaterUp recyclerAdapter;
     private androidx.recyclerview.widget.RecyclerView.LayoutManager layoutManager;
-    private ArrayList<ItemVideo> mListvUploaded;
+    public static ArrayList<ItemVideo> mListvUploaded;
     private View view;
     private  TextView menssage;
+    private BroadcastReceiver broadcastReceiver;
+    IntentFilter intentFilter;
 
 
     private String TAG = "VideoUploading";
@@ -49,7 +48,7 @@ public class VideoUploading extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_up, container, false);
+        view =  inflater.inflate(R.layout.fragment_uploading, container, false);
         menssage = (TextView)view.findViewById(R.id.messageVideo);
         buildRecyclerView(view);
         getDataVideo();
@@ -71,8 +70,8 @@ public class VideoUploading extends Fragment {
     public void getDataVideo(){
 
         Map<String, ?> prefsMap = miSharedPreferences.getAll();
-        recyclerView.setVisibility(View.VISIBLE);
         if(prefsMap.size()>0){
+            recyclerView.setVisibility(View.VISIBLE);
             menssage.setVisibility(View.GONE);
             for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
                 Log.d(TAG, entry.getKey() + " VALOR: " +
@@ -85,7 +84,21 @@ public class VideoUploading extends Fragment {
             recyclerView.setVisibility(View.GONE);
             menssage.setVisibility(View.VISIBLE);
         }
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        broadcastReceiver = new BroadcastUpdateUi();
+        intentFilter = new IntentFilter("com.global.recordingvideo.UPDATE_UI");
+        intentFilter.addAction("com.global.recordingvideo.UPDATE_UI");
+        getContext().registerReceiver(broadcastReceiver,intentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(broadcastReceiver);
+    }
 }

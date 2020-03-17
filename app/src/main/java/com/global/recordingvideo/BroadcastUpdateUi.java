@@ -1,14 +1,13 @@
 package com.global.recordingvideo;
-import android.app.Activity;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-
+import static com.global.recordingvideo.ui.main.VideoUploading.mListvUploaded;
+import static com.global.recordingvideo.ui.main.VideoUploading.recyclerAdapter;
 
 public class BroadcastUpdateUi extends BroadcastReceiver {
 
@@ -20,10 +19,15 @@ public class BroadcastUpdateUi extends BroadcastReceiver {
 
         Log.d(TAG,"Lanzando broadcast: "+intent.getAction());
         Toast.makeText(context, "Update UI", Toast.LENGTH_SHORT).show();
+        String quitarItem = intent.getStringExtra("VIDEO");
 
-        Intent mIntent = new Intent(context,ResultActivity.class);
-        intent.putExtra("MESSAGE_BROADCAST","HAY COMUNICACION PERRO");
-        context.startActivity(mIntent);
+        for(int i = 0; i<mListvUploaded.size(); i++){
 
+            if(quitarItem.equals(mListvUploaded.get(i).getNombreArchivo())){
+                recyclerAdapter.notifyItemRemoved(i);
+                mListvUploaded.remove(i);
+                recyclerAdapter.notifyDataSetChanged();
+            }
+        }
     }
 }

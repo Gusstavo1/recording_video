@@ -51,7 +51,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
     private String filePath, fecha;
     private Intent intent;
     private long mCountDownTimer = 16000;
-    //private long mCountDownTimer = 0;
 
     public static int cameraId = -1;
     private Chronometer chronometer;
@@ -458,29 +457,9 @@ public class VideoCaptureActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    /*
-    public void dialogSalir(){
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("¿Terminar video?")
-                .setCancelable(false)
-                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                }).setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                builder.create().dismiss();
-            }
-        });
-        builder.create().show();
-    }*/
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //dialogSalir();
     }
 
 

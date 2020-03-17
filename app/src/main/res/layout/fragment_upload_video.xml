@@ -6,11 +6,24 @@
     tools:context=".ui.main.VideoUploaded">
 
     <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/miRecycler1"
+        android:visibility="gone"
+        android:id="@+id/miRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/mMessageVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No hay videos enviados"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:textStyle="bold">
+    </TextView>
+
 
 </FrameLayout>

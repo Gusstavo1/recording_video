@@ -19,24 +19,51 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--
+        Lanza broadcast demo
+        -->
+        <receiver android:name=".RecyclerDemo.BroadcastRecycler">
+            <intent-filter>
+                <action android:name="UPDATE_UI" />
+            </intent-filter>
+
+        </receiver>
+
+        <activity android:name=".RecyclerDemo.Demo">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
+
         <activity
             android:name=".TabsVideos"
             android:label="@string/title_activity_tabs_videos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
         <activity
             android:name=".TabsVideo"
             android:label="@string/title_activity_tabs_video"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
+
         <activity
             android:name=".ResultActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".Principal" />
         <activity android:name=".Principal">
+
+            <!--AQUI VA LA ACTIVIDAD QUE INICIA LA APP-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".VideoCaptureActivity" />
 
