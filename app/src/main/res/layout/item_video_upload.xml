@@ -59,6 +59,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/msuccess"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                </ImageView>
+
+                <!--
+
                 <com.airbnb.lottie.LottieAnimationView
                     android:layout_weight="1"
                     android:layout_gravity="center"
@@ -70,7 +81,8 @@
                     app:lottie_fileName="success.json"
                     app:lottie_loop="true">
 
-                </com.airbnb.lottie.LottieAnimationView>
+                </com.airbnb.lottie.LottieAnimationView>-->
+
 
             </LinearLayout>
 

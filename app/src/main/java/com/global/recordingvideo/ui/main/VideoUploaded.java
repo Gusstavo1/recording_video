@@ -65,7 +65,7 @@ public class VideoUploaded extends Fragment {
 
     public void buildRecyclerView(View view){
 
-        recyclerViewUp = (RecyclerView)view.findViewById(R.id.miRecycler);
+        recyclerViewUp = (RecyclerView)view.findViewById(R.id.recyclerUpload);
         mListvUploaded = new ArrayList<>();
         recyclerViewUp.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -78,6 +78,7 @@ public class VideoUploaded extends Fragment {
 
         SharedPreferences sh = getContext().getSharedPreferences("SUBIDOS", Context.MODE_PRIVATE);
         Map<String, ?> prefsMap = sh.getAll();
+
         if(prefsMap.size()>0){
             recyclerViewUp.setVisibility(View.VISIBLE);
             messageNoVideo.setVisibility(View.GONE);

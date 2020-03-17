@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
 import com.global.recordingvideo.ItemVideo;
 
 import static com.global.recordingvideo.ui.main.VideoUploaded.mListvUploaded;
@@ -20,9 +19,18 @@ public class BroadCastUpdateUi_Up extends BroadcastReceiver {
 
         String newItem = intent.getStringExtra("item");
         Log.d(TAG,"Run: "+intent.getAction()+" nuevo item: "+newItem);
+        Log.d(TAG,"Tamaño de la lista: "+mListvUploaded.size());
 
-        recyclerAdapterUp.notifyItemInserted((mListvUploaded.size()-1));
-        mListvUploaded.add(new ItemVideo(newItem));
-        recyclerAdapterUp.notifyDataSetChanged();
+        if(mListvUploaded.size()== 0){
+            recyclerAdapterUp.notifyItemInserted(0);
+            mListvUploaded.add(new ItemVideo(newItem));
+            recyclerAdapterUp.notifyDataSetChanged();
+        }else{
+
+            recyclerAdapterUp.notifyItemInserted(mListvUploaded.size()-1);
+            mListvUploaded.add(new ItemVideo(newItem));
+            recyclerAdapterUp.notifyDataSetChanged();
+        }
+
     }
 }
