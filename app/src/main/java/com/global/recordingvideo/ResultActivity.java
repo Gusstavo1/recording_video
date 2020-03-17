@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.global.recordingvideo.ui.main.BroadcastUpdateUi;
+
 import java.util.ArrayList;
 import java.util.Map;
 

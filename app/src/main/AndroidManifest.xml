@@ -20,26 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--
-        Lanza broadcast demo
-        -->
-        <receiver android:name=".RecyclerDemo.BroadcastRecycler">
-            <intent-filter>
-                <action android:name="UPDATE_UI" />
-            </intent-filter>
-
-        </receiver>
-
-        <activity android:name=".RecyclerDemo.Demo">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-
-        </activity>
 
         <activity
             android:name=".TabsVideos"
@@ -67,6 +47,7 @@
         </activity>
         <activity android:name=".VideoCaptureActivity" />
 
+
         <receiver
             android:name=".BroadCastInternet"
             android:exported="true">
@@ -74,11 +55,19 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
         <receiver
-            android:name=".BroadcastUpdateUi"
+            android:name=".ui.main.BroadcastUpdateUi"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.global.recordingvideo.UPDATE_UI" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".ui.main.BroadCastUpdateUi_Up"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.global.recordingvideo.UPDATE_UI_UP" />
             </intent-filter>
         </receiver>
 
