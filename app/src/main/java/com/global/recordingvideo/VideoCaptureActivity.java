@@ -74,9 +74,9 @@ public class VideoCaptureActivity extends AppCompatActivity {
         File nuevaCarpeta = new File(getExternalStorageDirectory(), "videos_monitoreo_unidades");
         if(!nuevaCarpeta.exists()){
             nuevaCarpeta.mkdirs();
-            Toast.makeText(myContext, "Creando carpeta de videos", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(myContext, "Creando carpeta de videos", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(myContext, "La carpeta ya existe.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(myContext, "La carpeta ya existe.", Toast.LENGTH_SHORT).show();
         }
 
         intent   = getIntent();
@@ -409,7 +409,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
 
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
                     builder.setCancelable(false);
-                    builder.setMessage("This application cannot record video because it does not have the write external storage permission.");
+                    builder.setMessage("Esta aplicación no puede grabar video porque no tiene permiso de escritura de almacenamiento externo.");
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.show();
                 }
@@ -420,7 +420,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
                 } else {
                     final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
                     builder.setCancelable(false);
-                    builder.setMessage("This application cannot record video because it does not have the record audio permission.");
+                    builder.setMessage("Esta aplicación no puede grabar video porque no tiene el permiso de grabación de audio.");
                     builder.setPositiveButton(android.R.string.ok, null);
                     builder.show();
                 }
@@ -438,7 +438,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         if(mediaFile.exists()){
-                            Toast.makeText(myContext, "El archivo del video existe"+filePath, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(myContext, "El archivo del video existe"+filePath, Toast.LENGTH_LONG).show();
                             Log.d(TAG,"El archivo de video se genero :PATH"+filePath+"\nVideos : "+contGrabaciones);
                             String uniqueID = UUID.randomUUID().toString();
                             editor.putString("PATH_VIDEO_"+fecha,filePath);

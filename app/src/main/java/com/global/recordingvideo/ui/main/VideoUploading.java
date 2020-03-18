@@ -94,4 +94,5 @@ public class VideoUploading extends Fragment {
         super.onPause();
         getContext().unregisterReceiver(broadcastReceiver);
     }
+
 }

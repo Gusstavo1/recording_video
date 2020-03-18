@@ -23,6 +23,8 @@ import java.util.Map;
 
 public class DemoRecycler extends AppCompatActivity {
 
+    /*
+
     public static RecyclerView recyclerDemo;
     public static RecyclerAdapter recyclerAdapterDemo;
     public static ArrayList<ItemVideo> mListvUploaded;
@@ -110,4 +112,7 @@ public class DemoRecycler extends AppCompatActivity {
         super.onStop();
         unregisterReceiver(broadcastReceiver);
     }
+
+
+     */
 }

@@ -13,9 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.global.recordingvideo.ItemVideo;
 import com.global.recordingvideo.R;
@@ -23,19 +23,20 @@ import com.global.recordingvideo.RecyclerAdapter;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class VideoUploaded extends Fragment {
+public class VideoUploaded extends Fragment implements RecyclerAdapter.onExampleListener {
 
     public static RecyclerView recyclerViewUp;
     public static RecyclerAdapter recyclerAdapterUp;
     public static ArrayList<ItemVideo> mListvUploaded;
     private TextView messageNoVideo;
-
+    private ImageButton deleteItem;
     private androidx.recyclerview.widget.RecyclerView.LayoutManager layoutManager;
-    private View view;
-    private LinearLayout linearLayout;
+    private View view , viewItem;
+    //private LinearLayout linearLayout;
     private BroadcastReceiver broadcastReceiver;
     private String TAG = "VideoUploaded";
-    IntentFilter intentFilter;
+    private IntentFilter intentFilter;
+
 
     public VideoUploaded() {
     }
@@ -44,16 +45,28 @@ public class VideoUploaded extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate");
-        Toast.makeText(getContext(), "Hello world", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_upload_video, container, false);
-        messageNoVideo = (TextView)view.findViewById(R.id.mMessageVideo);
+
+        messageNoVideo  = (TextView)view.findViewById(R.id.mMessageVideo);
+        viewItem        = inflater.inflate(R.layout.item_video_upload,container,false);
+        deleteItem      = (ImageButton)viewItem.findViewById(R.id.delete);
+
         buildRecyclerView(view);
         getDataVideo();
+
+
+        deleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG,"Delete !");
+            }
+        });
+
         return view;
     }
 
@@ -69,7 +82,7 @@ public class VideoUploaded extends Fragment {
         mListvUploaded = new ArrayList<>();
         recyclerViewUp.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerAdapterUp = new RecyclerAdapter(mListvUploaded);
+        recyclerAdapterUp = new RecyclerAdapter(mListvUploaded,this);
         recyclerViewUp.setLayoutManager(layoutManager);
         recyclerViewUp.setAdapter(recyclerAdapterUp);
     }
@@ -110,5 +123,11 @@ public class VideoUploaded extends Fragment {
     public void onPause() {
         super.onPause();
         getContext().unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    public void onClick(int position) {
+
+        Log.d(TAG,"Click position ! "+position);
     }
 }

@@ -21,6 +21,7 @@ import static com.global.recordingvideo.ManageFiles.mSharedPreferences;
 import static com.global.recordingvideo.ServiceCheckInternet.miSharedPreferences;
 
 public class ResultActivity extends AppCompatActivity {
+    /*
 
     static RecyclerView recyclerView;
     static RecyclerAdapter recyclerAdapter;
@@ -55,7 +56,7 @@ public class ResultActivity extends AppCompatActivity {
         mListvideos = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        recyclerAdapter = new RecyclerAdapter(mListvideos);
+        recyclerAdapter = new RecyclerAdapter(mListvideos, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
     }
@@ -120,6 +121,6 @@ public class ResultActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d(TAG,"onDestroy. unRegister");
         unregisterReceiver(broadcastReceiver);
-    }
+    }*/
 
 }
