@@ -66,17 +66,16 @@
                 android:src="@drawable/msuccess"
                 android:layout_width="40dp"
                 android:layout_height="40dp">
+                </ImageView>
 
-            </ImageView>
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/delete"
-                    android:background="@drawable/ic_delete"
+                <ImageView
+                    android:id="@+id/imgDelete"
                     android:layout_gravity="center"
+                    android:src="@drawable/ic_delete"
                     android:layout_width="40dp"
                     android:layout_height="40dp">
+                </ImageView>
 
-                </androidx.appcompat.widget.AppCompatImageButton>
 
                 <!--
 

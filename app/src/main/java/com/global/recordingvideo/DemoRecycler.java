@@ -50,7 +50,7 @@ public class DemoRecycler extends AppCompatActivity {
 
         btnRecycler.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(View view) {
 
                 Date miFecha = new Date();
                 String format = "yyyy-MM-dd_hh:mm:ss";

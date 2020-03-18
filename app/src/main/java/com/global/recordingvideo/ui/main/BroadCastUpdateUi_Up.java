@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import com.global.recordingvideo.ItemVideo;
+import com.global.recordingvideo.R;
 
 import static com.global.recordingvideo.ui.main.VideoUploaded.mListvUploaded;
 import static com.global.recordingvideo.ui.main.VideoUploaded.recyclerAdapterUp;
@@ -23,12 +24,12 @@ public class BroadCastUpdateUi_Up extends BroadcastReceiver {
 
         if(mListvUploaded.size()== 0){
             recyclerAdapterUp.notifyItemInserted(0);
-            mListvUploaded.add(new ItemVideo(newItem));
+            mListvUploaded.add(new ItemVideo(newItem, R.drawable.ic_delete));
             recyclerAdapterUp.notifyDataSetChanged();
         }else{
 
             recyclerAdapterUp.notifyItemInserted(mListvUploaded.size()-1);
-            mListvUploaded.add(new ItemVideo(newItem));
+            mListvUploaded.add(new ItemVideo(newItem,R.drawable.ic_delete));
             recyclerAdapterUp.notifyDataSetChanged();
         }
 

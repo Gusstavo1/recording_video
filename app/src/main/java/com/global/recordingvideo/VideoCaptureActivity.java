@@ -445,10 +445,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
                             editor.commit();
                             pause.setVisibility(View.INVISIBLE);
 
-                            //Intent mIntent = new Intent(getApplicationContext(),ResultActivity.class);
-                            //startActivity(mIntent);
-                            //Aqui se lanzaba se invocaba la clase Manafiles
-
                         }else{
                             Log.d(TAG,"No existe el archivo.");
                         }
