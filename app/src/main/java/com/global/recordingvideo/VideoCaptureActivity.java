@@ -333,8 +333,6 @@ public class VideoCaptureActivity extends AppCompatActivity {
         mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_QVGA));
         mediaRecorder.setVideoFrameRate(15);
         mediaRecorder.setOutputFile(filePath);
-        //mediaRecorder.setMaxDuration(15000); // Set max duration 15 sec.
-        //mediaRecorder.setMaxFileSize(10000000); // Set max file size 1M
 
         try {
             mediaRecorder.prepare();

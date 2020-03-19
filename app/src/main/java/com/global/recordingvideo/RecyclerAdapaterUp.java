@@ -3,10 +3,13 @@ package com.global.recordingvideo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.global.recordingvideo.ui.main.FrameVideo;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,8 @@ public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         ItemVideo itemVideo = mListVideos.get(position);
         holder.fileName.setText(itemVideo.getNombreArchivo());
+        holder.frameVideoUploading.setImageBitmap(FrameVideo.getFrame("/storage/emulated/0/videos_monitoreo_unidades/"+itemVideo.getNombreArchivo()));
+                //holder.framVideo.setImageBitmap(FrameVideo.getFrame("/storage/emulated/0/videos_monitoreo_unidades/"+itemVideo.getNombreArchivo()));
     }
 
     @Override
@@ -40,10 +45,12 @@ public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder{
         public TextView fileName;
+        public ImageView frameVideoUploading;
 
         public RecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
             fileName = itemView.findViewById(R.id.nombreVideoUP);
+            frameVideoUploading = itemView.findViewById(R.id.frameVideoUploading);
         }
     }
 }

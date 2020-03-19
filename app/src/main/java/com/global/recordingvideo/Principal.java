@@ -14,7 +14,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
+import android.os.StatFs;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +29,12 @@ public class Principal extends AppCompatActivity {
     //private BroadCastInternet broadCastInternet;
     private Message message;
 
-
+    /*
+    * Revisar la clase VideoUploded y VideoUploading
+    * el metodo getData la siguiente linea :
+    *
+    *   String nombreArchivo = entry.getValue().toString().substring(entry.getValue().toString().indexOf("test"));
+    * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +42,9 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
         getSupportActionBar().hide();
 
-        //inicia el service
-        //Intent mIntent = new Intent(this,ServiceInternet.class);
-        //startService(mIntent);
         startService(new Intent(this,ServiceCheckInternet.class));
-        //isMyServiceRunning(ServiceCheckInternet.class);
+
+        getSize();
 
         Button btnOpenCam   = (Button)findViewById(R.id.openCam);
         Button btnVideos    = (Button)findViewById(R.id.verArchivos);
@@ -93,7 +98,7 @@ public class Principal extends AppCompatActivity {
             return true;
         } else {
             Log.d(TAG,"Sin conexión.");
-            //dialogo();
+
             return false;
         }
     }
@@ -101,11 +106,6 @@ public class Principal extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        /*IntentFilter intentFilter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
-        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        broadCastInternet = new BroadCastInternet();
-        registerReceiver(broadCastInternet,intentFilter);*/
     }
 
     @Override
@@ -120,14 +120,13 @@ public class Principal extends AppCompatActivity {
         //unregisterReceiver(broadCastInternet);
     }
 
-    /*private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.d(TAG,"Service run!");
-                return true;
-            }
-        }
-        return false;
-    }*/
+    public void getSize(){
+
+        StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
+        long bytesAvailable = (long)stat.getBlockSize() *(long)stat.getBlockCount();
+        long megAvailable   = bytesAvailable / 1048576;
+        Log.d(TAG,"Espacio disponible: "+megAvailable);
+    }
+
+
 }

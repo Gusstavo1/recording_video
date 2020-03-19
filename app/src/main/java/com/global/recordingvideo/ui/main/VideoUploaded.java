@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.global.recordingvideo.ItemVideo;
 import com.global.recordingvideo.R;
@@ -29,6 +32,7 @@ public class VideoUploaded extends Fragment {
     public static RecyclerAdapter recyclerAdapterUp;
     public static ArrayList<ItemVideo> mListvUploaded;
     private TextView messageNoVideo;
+    private ImageView imgDemo;
 
     private androidx.recyclerview.widget.RecyclerView.LayoutManager layoutManager;
     private View view ;
@@ -54,8 +58,11 @@ public class VideoUploaded extends Fragment {
                              Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_upload_video, container, false);
         messageNoVideo  = (TextView)view.findViewById(R.id.mMessageVideo);
+        imgDemo = (ImageView)view.findViewById(R.id.imageDemo);
+
         buildRecyclerView(view);
         getDataVideo();
+        //imgDemo.setImageBitmap(getFrame("/storage/emulated/0/videos_monitoreo_unidades/testVideo2020-03-18_05:01:00.mp4"));
 
         return view;
     }
@@ -88,9 +95,6 @@ public class VideoUploaded extends Fragment {
                 showDialog(position);
             }
         });
-
-
-
     }
 
     public void getDataVideo(){
@@ -152,9 +156,6 @@ public class VideoUploaded extends Fragment {
 
     public void removeItem(int position){
 
-        //sh = getContext().getSharedPreferences("SUBIDOS", Context.MODE_PRIVATE);
-        //edit = sh.edit();
-
         mListvUploaded.remove(position);
         recyclerAdapterUp.notifyItemRemoved(position);
         Map<String, ?> prefsMap = sh.getAll();
@@ -178,4 +179,5 @@ public class VideoUploaded extends Fragment {
         }
         demoLista.clear();
     }
+
 }

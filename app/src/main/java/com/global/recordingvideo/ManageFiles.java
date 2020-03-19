@@ -57,6 +57,7 @@ public class ManageFiles {
                         //Quital el valor de memoria cache.
                         editor.remove("PATH_VIDEO_"+nombreKey).commit();
 
+                        //GUARDA EL NOMBRE DEL ARCHIVO SUBIDO ... video_
                         mSharedPreferences = getContext().getSharedPreferences("SUBIDOS",Context.MODE_PRIVATE);
                         mEditor = mSharedPreferences.edit();
                         mEditor.putString("video_"+fileName,fileName);

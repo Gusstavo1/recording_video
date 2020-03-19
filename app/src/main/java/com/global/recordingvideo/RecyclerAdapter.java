@@ -1,5 +1,8 @@
 package com.global.recordingvideo;
 
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.global.recordingvideo.ui.main.FrameVideo;
+
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
     private ArrayList<ItemVideo>mListVideos;
     private OnItemClickListener exampleListener;
-
+    private String TAG = "RecyclerAdapter";
 
     public void setOnclickListener(OnItemClickListener listener){
         exampleListener = listener;
@@ -41,6 +46,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         ItemVideo itemVideo = mListVideos.get(position);
         holder.fileName.setText(itemVideo.getNombreArchivo());
         holder.delete.setImageResource(itemVideo.getImgDelete());
+        //holder.framVideo.setImageBitmap(getFrame("/storage/emulated/0/videos_monitoreo_unidades/"+itemVideo.getNombreArchivo()));
+
+        holder.framVideo.setImageBitmap(FrameVideo.getFrame("/storage/emulated/0/videos_monitoreo_unidades/"+itemVideo.getNombreArchivo()));
     }
 
     @Override
@@ -61,16 +69,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
          public TextView fileName;
          public ImageView delete;
+         public ImageView framVideo;
         OnItemClickListener exampleListener;
-
-
 
          public RecyclerViewHolder(@NonNull View itemView, OnItemClickListener exampleListener) {
             super(itemView);
 
             this.exampleListener = exampleListener;
-            fileName = itemView.findViewById(R.id.nombreVideo);
-            delete = itemView.findViewById(R.id.imgDelete);
+            fileName    = itemView.findViewById(R.id.nombreVideo);
+            delete      = itemView.findViewById(R.id.imgDelete);
+            framVideo   = itemView.findViewById(R.id.frameVideo);
             itemView.setOnClickListener(this);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -109,4 +117,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         void onItemClick(int position);
         void onDeleteClick(int position);
     }
+
+    /*
+    public Bitmap getFrame(String path){
+
+        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
+        mediaMetadataRetriever.setDataSource(path);
+        String METADATA_KEY_DURATION = mediaMetadataRetriever
+                .extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        Bitmap bmpOriginal = mediaMetadataRetriever.getFrameAtTime(0);
+
+        return bmpOriginal;
+    }*/
 }
