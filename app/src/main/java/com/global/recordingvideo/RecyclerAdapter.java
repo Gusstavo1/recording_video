@@ -1,5 +1,6 @@
 package com.global.recordingvideo;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
@@ -20,14 +21,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     private ArrayList<ItemVideo>mListVideos;
     private OnItemClickListener exampleListener;
-    private String TAG = "RecyclerAdapter";
+    private Context context;
 
     public void setOnclickListener(OnItemClickListener listener){
         exampleListener = listener;
     }
 
+    public RecyclerAdapter(OnItemClickListener exampleListener, Context context) {
+        this.exampleListener = exampleListener;
+        this.context = context;
+    }
+
     public RecyclerAdapter(ArrayList<ItemVideo> mListVideos) {
         this.mListVideos = mListVideos;
+
         //this.exampleListener = exampleListener;
     }
 

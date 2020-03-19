@@ -55,7 +55,7 @@ public class VideoUploading extends Fragment {
         mListvUploading = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
-        recyclerAdapter = new RecyclerAdapaterUp(mListvUploading);
+        recyclerAdapter = new RecyclerAdapaterUp(mListvUploading,getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
     }

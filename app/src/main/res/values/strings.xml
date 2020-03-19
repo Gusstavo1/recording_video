@@ -5,6 +5,7 @@
     <string name="tab_text_1">Videos Subidos</string>
     <string name="tab_text_2">Videos en espera</string>
     <string name="title_activity_tabs_videos">TabsVideos</string>
+    <string name="pathVideo">/storage/emulated/0/videos_monitoreo_unidades/</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

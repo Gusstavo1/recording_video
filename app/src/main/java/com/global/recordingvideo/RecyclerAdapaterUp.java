@@ -1,5 +1,6 @@
 package com.global.recordingvideo;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,12 @@ import java.util.ArrayList;
 public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.RecyclerViewHolder>  {
 
     private ArrayList<ItemVideo>mListVideos;
+    private Context context;
+
+    public RecyclerAdapaterUp(ArrayList<ItemVideo> mListVideos, Context context) {
+        this.mListVideos = mListVideos;
+        this.context = context;
+    }
 
     public RecyclerAdapaterUp(ArrayList<ItemVideo> mListVideos) {
         this.mListVideos = mListVideos;
@@ -34,7 +41,7 @@ public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         ItemVideo itemVideo = mListVideos.get(position);
         holder.fileName.setText(itemVideo.getNombreArchivo());
-        holder.frameVideoUploading.setImageBitmap(FrameVideo.getFrame("/storage/emulated/0/videos_monitoreo_unidades/"+itemVideo.getNombreArchivo()));
+        holder.frameVideoUploading.setImageBitmap(FrameVideo.getFrame(context.getString(R.string.pathVideo)+itemVideo.getNombreArchivo()));
                 //holder.framVideo.setImageBitmap(FrameVideo.getFrame("/storage/emulated/0/videos_monitoreo_unidades/"+itemVideo.getNombreArchivo()));
     }
 

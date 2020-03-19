@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.global.recordingvideo.ItemVideo;
 import com.global.recordingvideo.R;
 import com.global.recordingvideo.RecyclerAdapter;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -172,9 +174,17 @@ public class VideoUploaded extends Fragment {
         for (int i = 0; i<demoLista.size(); i++){
 
             if(position == i){
+
                 Log.d(TAG,"KEY en CACHE: "+demoLista.get(i)+" Borrando...");
                 edit.remove("video_"+demoLista.get(i)).apply();
                 edit.commit();
+                File fileVideo = new File(getString(R.string.pathVideo)+demoLista.get(i));
+                if(fileVideo.exists()){
+                    fileVideo.delete();
+                    Log.d(TAG,"Archivo de video borrado");
+                }else {
+                    Log.d(TAG,"Elemento no borrando");
+                }
             }
         }
         demoLista.clear();

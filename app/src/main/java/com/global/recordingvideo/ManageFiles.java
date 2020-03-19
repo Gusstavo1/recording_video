@@ -102,7 +102,7 @@ public class ManageFiles {
 
         Log.d(TAG,"Creando notificacion "+tipe);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
-        Intent mIntent = new Intent(getContext(),ResultActivity.class);
+        Intent mIntent = new Intent(getContext(),TabsVideos.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),1,mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
         if(tipe.equals("Error")){
