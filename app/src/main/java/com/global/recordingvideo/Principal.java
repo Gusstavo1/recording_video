@@ -17,17 +17,19 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.StatFs;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class Principal extends AppCompatActivity {
 
     private String TAG = "Principal";
-    //private BroadCastInternet broadCastInternet;
     private Message message;
+    private long LIMITE_GIGABYTE = 30000000; //numero en kilobytes igual a 30 MB
 
     /*
     * Revisar la clase VideoUploded y VideoUploading
@@ -43,8 +45,6 @@ public class Principal extends AppCompatActivity {
         getSupportActionBar().hide();
 
         startService(new Intent(this,ServiceCheckInternet.class));
-
-        getSize();
 
         Button btnOpenCam   = (Button)findViewById(R.id.openCam);
         Button btnVideos    = (Button)findViewById(R.id.verArchivos);
@@ -68,26 +68,6 @@ public class Principal extends AppCompatActivity {
         });
     }
 
-    public void dialogo(){
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Sin conexión a internet     :(\n¿Desea grabar sin estar conectado? el video se almacenará de forma local y se enviará en cuanto se reestablezca la conexión.")
-                .setCancelable(false)
-                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        Intent intent = new Intent(Principal.this,VideoCaptureActivity.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                        builder.create().dismiss();
-                    }
-                });
-        builder.create().show();
-    }
 
     public boolean connect(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -120,12 +100,64 @@ public class Principal extends AppCompatActivity {
         //unregisterReceiver(broadCastInternet);
     }
 
-    public void getSize(){
+    public long availableMemory(){
 
         StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
         long bytesAvailable = (long)stat.getBlockSize() *(long)stat.getBlockCount();
-        long megAvailable   = bytesAvailable / 1048576;
-        Log.d(TAG,"Espacio disponible: "+megAvailable);
+        long megAvailable = bytesAvailable / 1048576;
+        Log.e(TAG,"Available MB : "+megAvailable);
+        File path = Environment.getDataDirectory();
+        StatFs stat2 = new StatFs(path.getPath());
+        long blockSize = stat2.getBlockSize();
+        long availableBlocks = stat2.getAvailableBlocks();
+
+        String format =  Formatter.formatFileSize(this, availableBlocks * blockSize);
+        Log.d(TAG,"Memoria interna disponible : "+format);
+        long freeBytesInternal = new File(getFilesDir().getAbsoluteFile().toString()).getFreeSpace();
+        long memoryBytes = availableBlocks*blockSize;
+        return memoryBytes;
+    }
+
+    public void dialogo(){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder .setTitle("Sin conexión a internet ")
+                .setMessage("¿Desea grabar sin estar conectado? el video se almacenará de forma local y se enviará en cuanto se reestablezca la conexión.")
+                .setCancelable(false)
+                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        if(availableMemory() >= LIMITE_GIGABYTE){
+                            Intent intent = new Intent(Principal.this,VideoCaptureActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Log.d(TAG,"El espacio en memoria interna no es sufuciente");
+                            dialogoMemoria();
+                        }
+                    }
+                })
+                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        builder.create().dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
+    public void dialogoMemoria(){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder .setTitle("Sin espacio")
+                .setMessage("Espacio en memoria interna no suficiente. Debe tener almenos 30 MB libres.")
+                .setCancelable(false)
+                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.create().show();
     }
 
 

@@ -164,21 +164,21 @@ public class VideoUploaded extends Fragment {
 
         int cont = 0;
         Log.d(TAG,"position "+position);
-        ArrayList<String>demoLista = new ArrayList<>();
+        ArrayList<String>listNameVideo = new ArrayList<>();
 
         for (Map.Entry<String, ?> entry: prefsMap.entrySet()) {
             Log.d(TAG,"VALUE "+entry.getValue().toString());
-            demoLista.add(entry.getValue().toString());
+            listNameVideo.add(entry.getValue().toString());
         }
 
-        for (int i = 0; i<demoLista.size(); i++){
+        for (int i = 0; i<listNameVideo.size(); i++){
 
             if(position == i){
 
-                Log.d(TAG,"KEY en CACHE: "+demoLista.get(i)+" Borrando...");
-                edit.remove("video_"+demoLista.get(i)).apply();
+                Log.d(TAG,"KEY en CACHE: "+listNameVideo.get(i)+" Borrando...");
+                edit.remove("video_"+listNameVideo.get(i)).apply();
                 edit.commit();
-                File fileVideo = new File(getString(R.string.pathVideo)+demoLista.get(i));
+                File fileVideo = new File(getString(R.string.pathVideo)+listNameVideo.get(i));
                 if(fileVideo.exists()){
                     fileVideo.delete();
                     Log.d(TAG,"Archivo de video borrado");
@@ -187,7 +187,7 @@ public class VideoUploaded extends Fragment {
                 }
             }
         }
-        demoLista.clear();
+        listNameVideo.clear();
     }
 
 }

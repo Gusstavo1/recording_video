@@ -3,15 +3,11 @@ package com.global.recordingvideo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
@@ -438,7 +434,7 @@ public class VideoCaptureActivity extends AppCompatActivity {
                         if(mediaFile.exists()){
                             //Toast.makeText(myContext, "El archivo del video existe"+filePath, Toast.LENGTH_LONG).show();
                             Log.d(TAG,"El archivo de video se genero :PATH"+filePath+"\nVideos : "+contGrabaciones);
-                            String uniqueID = UUID.randomUUID().toString();
+                            //String uniqueID = UUID.randomUUID().toString();
                             editor.putString("PATH_VIDEO_"+fecha,filePath);
                             editor.commit();
                             pause.setVisibility(View.INVISIBLE);

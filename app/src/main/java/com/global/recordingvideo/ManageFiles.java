@@ -15,6 +15,8 @@ import com.amplifyframework.storage.StorageAccessLevel;
 import com.amplifyframework.storage.options.StorageUploadFileOptions;
 import com.amplifyframework.storage.result.StorageUploadFileResult;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
+import com.global.recordingvideo.ui.main.VideoUploaded;
+
 import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
 import static com.global.recordingvideo.ServiceCheckInternet.editor;
@@ -64,6 +66,7 @@ public class ManageFiles {
                         mEditor.commit();
 
                         Intent intent = new Intent("com.global.recordingvideo.UPDATE_UI");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("VIDEO",fileName);
                         context.sendBroadcast(intent);
 
@@ -77,7 +80,6 @@ public class ManageFiles {
                         Log.d(TAG, "Error al subir archivo: " + error.getMessage());
                         createNotification("Error","Video no enviado."
                                 ,"Algo ocurrio, el video será enviado de nuevo." );
-
                         if(miSharedPreferences.getAll().size()>0){
                             Log.d(TAG,"Lanza WorkManager ");
 
@@ -102,8 +104,9 @@ public class ManageFiles {
 
         Log.d(TAG,"Creando notificacion "+tipe);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(),CHANNEL_ID);
-        Intent mIntent = new Intent(getContext(),TabsVideos.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),1,mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        //Intent mIntent = new Intent(getContext(),VideoUploaded.class);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(getContext(),1,mIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         if(tipe.equals("Error")){
             builder.setSmallIcon(R.drawable.ic_error);
@@ -114,7 +117,7 @@ public class ManageFiles {
         builder.setContentText(text);
         builder.setColor(Color.BLUE);
         builder.setVibrate(new long[]{1000,1000,1000,1000});
-        builder.setContentIntent(pendingIntent);
+        //builder.setContentIntent(pendingIntent);
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getContext());
         notificationManagerCompat.notify(NOTIFICATION_ID.idAleatorio(),builder.build());
     }

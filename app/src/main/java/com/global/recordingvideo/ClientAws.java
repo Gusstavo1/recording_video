@@ -50,7 +50,7 @@ public class ClientAws extends Application {
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.d(TAG,"Creando canal de notificacion.");
-            CharSequence name = "NombreChannel";//getString(R.string.channel_name);
+            CharSequence name = "Notificación";//getString(R.string.channel_name);
             String description = "Despcription"; //getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);

@@ -18,7 +18,6 @@ public class RecyclerAdapaterUp extends RecyclerView.Adapter<RecyclerAdapaterUp.
 
     private ArrayList<ItemVideo>mListVideos;
     private Context context;
-
     public RecyclerAdapaterUp(ArrayList<ItemVideo> mListVideos, Context context) {
         this.mListVideos = mListVideos;
         this.context = context;
