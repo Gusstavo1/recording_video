@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:elevation="4dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video"
+            android:textStyle="bold"
+            android:textColor="#FF5722">
+
+        </TextView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:layout_margin="5dp"
+                android:id="@+id/frameVideo"
+                android:layout_weight="1"
+                android:src="@drawable/icon_cam"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop">
+            </ImageView>
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/msuccess"
+                android:visibility="visible"
+                >
+
+            </ImageView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre:"
+                android:textStyle="bold"
+                android:textColor="#FF5722">
+
+            </TextView>
+
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/nombreVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de video"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#181818">
+            </TextView>
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="2dp"
+                android:visibility="visible"
+                android:id="@+id/imgDelete"
+                android:layout_gravity="center"
+                android:src="@drawable/delete2"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+            </ImageView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.cardview.widget.CardView
+
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:layout_width="120dp"
@@ -44,16 +45,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <!--
-                <ImageView
-                    android:visibility="gone"
-                    android:layout_margin="5dp"
-                    android:id="@+id/frameVideo"
-                    android:layout_weight="1"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/icon_cam">
-                </ImageView>-->
 
             </LinearLayout>
 
@@ -64,13 +55,23 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Video"
+                    android:textStyle="bold"
+                    android:textColor="#FF5722">
+
+                </TextView>
+
+                <TextView
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:id="@+id/nombreVideo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nombre de video"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:textStyle="bold"
                     android:textColor="#181818">
                 </TextView>
@@ -88,34 +89,17 @@
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center"
                 android:src="@drawable/msuccess"
-                android:layout_width="40dp"
-                android:layout_height="40dp">
+                android:layout_width="20dp"
+                android:layout_height="20dp">
                 </ImageView>
 
                 <ImageView
                     android:id="@+id/imgDelete"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_delete"
+                    android:src="@drawable/delete2"
                     android:layout_width="40dp"
                     android:layout_height="40dp">
                 </ImageView>
-
-
-                <!--
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:id="@+id/animationUpload"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_fileName="success.json"
-                    app:lottie_loop="true">
-
-                </com.airbnb.lottie.LottieAnimationView>-->
-
 
             </LinearLayout>
 

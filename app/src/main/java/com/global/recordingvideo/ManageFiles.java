@@ -1,6 +1,5 @@
 package com.global.recordingvideo;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,8 +14,6 @@ import com.amplifyframework.storage.StorageAccessLevel;
 import com.amplifyframework.storage.options.StorageUploadFileOptions;
 import com.amplifyframework.storage.result.StorageUploadFileResult;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
-import com.global.recordingvideo.ui.main.VideoUploaded;
-
 import static com.global.recordingvideo.ClientAws.CHANNEL_ID;
 import static com.global.recordingvideo.ClientAws.NOTIFICATION_ID;
 import static com.global.recordingvideo.ServiceCheckInternet.editor;

@@ -24,12 +24,12 @@ public class BroadCastUpdateUi_Up extends BroadcastReceiver {
 
         if(mListvUploaded.size()== 0){
             recyclerAdapterUp.notifyItemInserted(0);
-            mListvUploaded.add(new ItemVideo(newItem, R.drawable.ic_delete));
+            mListvUploaded.add(new ItemVideo(newItem, R.drawable.delete2));
             recyclerAdapterUp.notifyDataSetChanged();
         }else{
 
             recyclerAdapterUp.notifyItemInserted(mListvUploaded.size()-1);
-            mListvUploaded.add(new ItemVideo(newItem,R.drawable.ic_delete));
+            mListvUploaded.add(new ItemVideo(newItem,R.drawable.delete2));
             recyclerAdapterUp.notifyDataSetChanged();
         }
 

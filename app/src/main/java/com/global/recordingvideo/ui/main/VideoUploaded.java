@@ -115,7 +115,7 @@ public class VideoUploaded extends Fragment {
                         entry.getValue().toString());
                 String nombreArchivo = entry.getValue().toString().substring(entry.getValue().toString().indexOf("test"));
                 Log.d(TAG,"Nombre del Archivo: "+nombreArchivo);
-                mListvUploaded.add(new ItemVideo(nombreArchivo,R.drawable.ic_delete));
+                mListvUploaded.add(new ItemVideo(nombreArchivo,R.drawable.delete2));
             }
         }else{
             recyclerViewUp.setVisibility(View.GONE);
