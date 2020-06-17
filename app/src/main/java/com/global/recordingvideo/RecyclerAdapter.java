@@ -119,15 +119,4 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         void onDeleteClick(int position);
     }
 
-    /*
-    public Bitmap getFrame(String path){
-
-        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-        mediaMetadataRetriever.setDataSource(path);
-        String METADATA_KEY_DURATION = mediaMetadataRetriever
-                .extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        Bitmap bmpOriginal = mediaMetadataRetriever.getFrameAtTime(0);
-
-        return bmpOriginal;
-    }*/
 }
